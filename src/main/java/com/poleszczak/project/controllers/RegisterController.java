@@ -54,10 +54,11 @@ public class RegisterController {
             );
         }
 
-        if (registerData.getPhoneNumber().length() != 9){
+        String polishPhoneNumberPattern = "^(\\+48)?\\d{9}$";
+        if (!registerData.getPhoneNumber().matches(polishPhoneNumberPattern)){
             result.addError(
                     new FieldError("registerData", "phoneNumber"
-                    ,"Phone Number is incorrect")
+                    ,"Phone Number is incorrect. Correct format +48")
             );
         }
 
