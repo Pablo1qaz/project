@@ -25,7 +25,45 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/contact">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/planner">Wedding Planer</a>
+                </li>
 
+            </ul>
+
+
+
+
+            <ul class="navbar-nav me" sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text dark" href="#" role="button" data-bs-toggle="dropdown">
+                        Company catalog
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/halls">Wedding halls</a></li>
+                        <li><a class="dropdown-item" href="/photographer">Photographer</a></li>
+                        <li><a class="dropdown-item" href="/dj">DJ</a></li>
+                        <li><a class="dropdown-item" href="/car">Car</a></li>
+                        <li><a class="dropdown-item" href="/makeup">Makeup</a></li>
+                        <li><a class="dropdown-item" href="/decorations">Wedding decorations</a></li>
+                        <li><a class="dropdown-item" href="/cameraman">Cameraman</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav me" sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text dark" href="#" role="button" data-bs-toggle="dropdown">
+                        Product catalog
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/dress">Wedding dresses</a></li>
+                        <li><a class="dropdown-item" href="/suits">Wedding suits</a></li>
+                        <li><a class="dropdown-item" href="/invitations">Wedding invitations</a></li>
+                        <li><a class="dropdown-item" href="/rings">Wedding rings</a></li>
+                        <li><a class="dropdown-item" href="/gifts">Wedding gifts</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <ul class="navbar-nav me-3" sec:authorize="isAuthenticated()">
