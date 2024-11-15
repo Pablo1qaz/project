@@ -7,36 +7,162 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
+<style>
+  ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+  }
+  ul li::before{
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(static/images/unchecked.png);
+    background-size: cover;
+    background-position: center;
+    top: 12px;
+    left: 8px;
+  }
+  ul li.checked::before{
+    background-image: url(static/images/checked.png);
+  }
+  ul#list-container {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul#list-container li {
+    cursor: pointer;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+
+  ul#list-container li:hover {
+    background-color: #eee;
+  }
+
+  ul#list-container li.checked {
+    text-decoration: line-through;
+    color: gray;
+  }
+  .stage-header {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+  }
+</style>
 <body>
 
 <div class="container">
   <div class="todo-app">
     <h2>To-Do List <img th:src="@{images/todo.png}"></h2>
     <ul id="list-container">
-      <li class="checked">Wybierz termin wesela i rodzaj ślubu</li>
+      <div class="stage-header">Etap 1</div>
+      <li>Wybrać termin wesela i rodzaj ślubu</li>
       <li>Ustalić charakter wesela</li>
-      <li>Określić liczbę gości</li>
+      <li>Określić wstępną liczbę gości</li>
+      <li>Określić budżet weselny</li>
+      <li>Wybrać salę weselną i zarezerwować termin</li>
+      <li>Wybrać miejsce na poprawiny</li>
+      <div class="stage-header">Etap 2</div>
+      <li>Szukanie sukni ślubnej</li>
+      <li>Zarezerwować datę i godzinę ślubu w kościele</li>
+      <li>Zapisać się na nauki przedmałżeńskie</li>
+      <li>Wybrać świadków</li>
+      <li>Wybrać kamerzystę</li>
+      <li>Wybrać Dj'a lub zespół muzyczny</li>
+      <li>Wybrać firmę dekoratorską</li>
+      <li>Kupić buty dla panny młodej</li>
+      <li>Kupić bieliznę ślubną</li>
+      <li>Kupić garnitur ślubny</li>
+      <div class="stage-header">Etap 3</div>
+      <li>Kupić obrączki ślubne</li>
+      <li>Określić ostateczną liczbę gości</li>
+      <li>Zamówić zaproszenia ślubne</li>
+      <li>Wybrać samochód do ślubu</li>
+      <li>Zarezrwować termin u makijażystki</li>
+      <li>Zarezerwować termin u fryzjerki</li>
+      <li>Umówić się na sesję narzeczeńską</li>
+      <div class="stage-header">Etap 4</div>
+      <li>Rozdać zaproszenia ślubne</li>
+      <li>Ustalić listę utworów weselnych</li>
+      <li>Wybrać piosenkę na pierwszy taniec</li>
+      <li>Rozpocząć kurs tańca dla narzeczonych</li>
+      <li>Ustalić menu weselne</li>
+      <li>Ustalić scenariusz wesela</li>
+      <li>Ustalić z dekoratorką szczegóły dotyczące bukietu ślubnego</li>
+      <li>Ustalić z dekoratorką szczegóły dotyczące dekoracji kościoła/urzędu i sali</li>
+      <li>Ustalić jakie konkursy i zabawy pojawią się podczas wesela</li>
+      <li>Umówić się na próbny makijaż oraz fryzurę</li>
+      <li>Wybrać ozdoby do włosów</li>
+      <li>Kupić biżuterię ślubną</li>
+      <li>Wybrać dodatki ślubne pana młodego</li>
+      <li>Zaplanować podróż poślubną</li>
+      <li>Wybrać sukienkę na poprawiny</li>
+      <li>Wybrać dekorację samochodu do ślubu</li>
+      <li>Zaplanować błogosławieństwo pary młodej</li>
+      <div class="stage-header">Etap 5</div>
+      <li>Zarezerwować transport dla gości weselnych</li>
+      <li>Ustalić ile gości potrzebuje noclegu i zarezerwować pokoje</li>
+      <li>Kupić alkohol jeśli nie ma go w ofercie sali weselnej</li>
+      <li>Ustalić usadzenie gości weselnych</li>
+      <li>Przekazać managerowi sali weselnej winietki oraz plan usadzenia gości</li>
+      <li>Wybrać podziękowania dla rodziców</li>
+      <li>Wybrać podziękowania dla gości weselnych</li>
+      <li>Ustalić przebieg dnia ślubu</li>
+      <li>Zaplanować błogosławieństwo pary młodej</li>
+      <div class="stage-header">Dzień Ślubu</div>
+      <li>Odebrać bukiet ślubny</li>
+      <li>Odebrać samochód do ślubu</li>
+      <li>Zabrać obrączki ślubne</li>
+      <li>Ustalić kto będzie odpowiedzialny za prezenty od gości</li>
+      <div class="stage-header">Po ślubie</div>
+      <li>Uregulować kwestie finansowe z usługodawcami</li>
+      <li>14 dni po ślubie można odebrać skrócony akt małżeństwa</li>
+      <li>14 dni po ślubie można odebrać skrócony akt małżeństwa</li>
+      <div class="stage-header">Potrzebne dokumenty</div>
+      <li>Dowody osobiste narzeczonych</li>
+      <li>Dowody osobiste świadków</li>
+      <li>Metryki chrztu</li>
+      <li>Zaświadczenia o bierzmowaniu</li>
+      <li>Świadectwa nauki religii</li>
+      <li>Potwierdzenie odbycia nauk przedmałżeńskich</li>
+      <li>Zaświadczenia o odbyciu spowiedzi</li>
+      <li>Zaświadczenie z Urzędu Stanu Cywilnego o braku okoliczności wykluczających zawarcie związku małżeńskiego</li>
+
+
+
+
     </ul>
-   <!-- <ul class="list-group">
-      <li class="list-group-item">
-        <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
-        <label class="form-check-label stretched-link" for="firstCheckboxStretched">First checkbox</label>
-      </li>
-      <li class="list-group-item">
-        <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckboxStretched">
-        <label class="form-check-label stretched-link" for="secondCheckboxStretched">Second checkbox</label>
-      </li>
-      <li class="list-group-item">
-        <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
-        <label class="form-check-label stretched-link" for="thirdCheckboxStretched">Third checkbox</label>
-      </li>
-    </ul>-->
+
+
 
   </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
-<script th:src="TaskListScript.js"></script>
+<script>
+
+    const listItems = document.querySelectorAll("#list-container li");
+
+    listItems.forEach(item => {
+    item.addEventListener("click", () => {
+
+      item.classList.toggle("checked");
+    });
+  });
+</script>
+
 </body>
 </html>
