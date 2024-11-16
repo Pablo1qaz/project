@@ -109,14 +109,14 @@
     }
 }
 
-.container{
+/*.container{
     width: auto;
     min-height: 100vh;
     background: linear-gradient(135deg, lightskyblue, papayawhip);
     padding: 10px;
 
 
-}
+}*/
 
 .todo-app{
     width: 100%;
