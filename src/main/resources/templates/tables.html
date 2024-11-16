@@ -163,35 +163,82 @@
     const addTableButton = document.getElementById('add-table');
     const addPersonButton = document.getElementById('add-person');
 
+    const loadFromLocalStorage = () => {
+        const data = JSON.parse(localStorage.getItem('tableData')) || {};
+        for (const [tableName, guests] of Object.entries(data)) {
+            createTable(tableName, guests);
+        }
+    };
+
+    const saveToLocalStorage = () => {
+        const data = {};
+        document.querySelectorAll('.table').forEach(table => {
+            const tableName = table.getAttribute('data-table-name');
+            const guests = Array.from(table.querySelectorAll('.person-list li')).map(li => li.textContent.replace('Usuń', '').trim());
+            data[tableName] = guests;
+        });
+        localStorage.setItem('tableData', JSON.stringify(data));
+    };
+
+    const createTable = (tableName, guests = []) => {
+        const tableDiv = document.createElement('div');
+        tableDiv.className = 'table';
+        tableDiv.setAttribute('data-table-name', tableName);
+
+        const tableHeader = document.createElement('div');
+        tableHeader.className = 'table-header';
+        tableHeader.textContent = `Table: ${tableName}`;
+
+        const removeTableButton = document.createElement('button');
+        removeTableButton.className = 'remove-table-btn';
+        removeTableButton.textContent = 'Remove';
+        removeTableButton.addEventListener('click', () => {
+            tableDiv.remove();
+            const optionToRemove = Array.from(tableSelect.options).find(option => option.value === tableName);
+            if (optionToRemove) optionToRemove.remove();
+            saveToLocalStorage();
+        });
+
+
+        const personList = document.createElement('ul');
+        personList.className = 'person-list';
+
+        guests.forEach(guest => {
+            const personItem = document.createElement('li');
+            personItem.textContent = guest;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', () => {
+                personItem.remove();
+                saveToLocalStorage();
+            });
+            personItem.appendChild(removeButton);
+            personList.appendChild(personItem);
+        });
+
+        tableDiv.appendChild(tableHeader);
+        tableDiv.appendChild(removeTableButton);
+        tableDiv.appendChild(personList);
+        tableContainer.appendChild(tableDiv);
+
+        const tableOption = document.createElement('option');
+        tableOption.value = tableName;
+        tableOption.textContent = tableName;
+        tableSelect.appendChild(tableOption);
+
+        saveToLocalStorage();
+    };
+
 
     addTableButton.addEventListener('click', () => {
         const tableNameInput = document.getElementById('table-name');
         const tableName = tableNameInput.value.trim();
 
         if (tableName) {
-            const tableDiv = document.createElement('div');
-            tableDiv.className = 'table';
-            tableDiv.setAttribute('data-table-name', tableName);
-
-            const tableHeader = document.createElement('div');
-            tableHeader.className = 'table-header';
-            tableHeader.textContent = `Stół: ${tableName}`;
-
-            const personList = document.createElement('ul');
-            personList.className = 'person-list';
-
-            tableDiv.appendChild(tableHeader);
-            tableDiv.appendChild(personList);
-            tableContainer.appendChild(tableDiv);
-
-            const tableOption = document.createElement('option');
-            tableOption.value = tableName;
-            tableOption.textContent = tableName;
-            tableSelect.appendChild(tableOption);
-
+            createTable(tableName);
             tableNameInput.value = '';
         } else {
-            alert('Podaj nazwę stołu!');
+            alert('Enter table name!');
         }
     });
 
@@ -209,11 +256,23 @@
 
             personList.appendChild(personItem);
 
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Usuń';
+            removeButton.addEventListener('click', () => {
+                personItem.remove();
+                saveToLocalStorage();
+            });
+
+            personItem.appendChild(removeButton);
+            personList.appendChild(personItem);
+
             personNameInput.value = '';
+            saveToLocalStorage();
         } else {
-            alert('Podaj imię i nazwisko oraz wybierz stół!');
+            alert('Enter name and surname amd choose the table!');
         }
     });
+    loadFromLocalStorage();
 </script>
 </body>
 </html>

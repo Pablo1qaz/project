@@ -17,44 +17,67 @@
 
 
 <div class="container" >
-    <div class="guest-app">
-        <h2>Guest List <img th:src="@{images/quest.png}"></h2>
-        <div class="row">
-            <input type="text" id="input-box" placeholder="Add quest">
+    <div class="container">
+        <div class="guest-app">
+            <h2>Guest List</h2>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add guest">
+            </div>
+            <button onclick="addGuest()">Add</button>
+            <hr>
+            <ul id="list-container"></ul>
         </div>
-        <button onclick="function addGuest() {
-            const inputBox = document.getElementById('input-box');
-            const listContainer = document.getElementById('list-container')
-
-            if(inputBox.value === ''){
-                alert('You must write something');
-            }
-            else{
-                let li = document.createElement('li');
-                li.innerHTML = inputBox.value;
-                listContainer.appendChild(li);
-                let span = document.createElement('span')
-                span.innerHTML = '\u00d7';
-                li.appendChild(span);
-            }
-            inputBox.value = '';
-            listContainer.addEventListener('click',function (e){
-                if(e.target.tagName === 'SPAN'){
-                    e.target.parentElement.remove();
-                }
-
-            }, false);
-        }
-
-
-        addGuest()">Add</button>
-        <hr>
-        <ul id="list-container">
-        </ul>
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const inputBox = document.getElementById("input-box");
+    const listContainer = document.getElementById("list-container");
+
+    const saveGuests = () => {
+        const guests = [];
+        listContainer.querySelectorAll("li").forEach(li => {
+            guests.push(li.firstChild.textContent);
+        });
+        localStorage.setItem("guests", JSON.stringify(guests));
+    };
+
+    const loadGuests = () => {
+        const savedGuests = JSON.parse(localStorage.getItem("guests")) || [];
+        savedGuests.forEach(guest => {
+            addGuestToList(guest);
+        });
+    };
+
+    const addGuest = () => {
+        const guestName = inputBox.value.trim();
+        if (guestName === "") {
+            alert("You must write something!");
+            return;
+        }
+        addGuestToList(guestName);
+        inputBox.value = "";
+        saveGuests();
+    };
+
+
+    const addGuestToList = (guestName) => {
+        const li = document.createElement("li");
+        li.textContent = guestName;
+
+        const span = document.createElement("span");
+        span.textContent = "\u00d7";
+        span.addEventListener("click", () => {
+            li.remove();
+            saveGuests();
+        });
+
+        li.appendChild(span);
+        listContainer.appendChild(li);
+    };
+
+    loadGuests();
+</script>
 </body>
 </html>

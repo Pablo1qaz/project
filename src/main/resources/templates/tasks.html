@@ -157,14 +157,47 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
 <script>
 
-    const listItems = document.querySelectorAll("#list-container li");
+  const listContainer = document.getElementById("list-container");
 
-    listItems.forEach(item => {
-    item.addEventListener("click", () => {
-
-      item.classList.toggle("checked");
+  
+  const saveTaskState = () => {
+    const tasks = [];
+    listContainer.querySelectorAll("li").forEach((item, index) => {
+      tasks.push({
+        id: index,
+        text: item.textContent,
+        checked: item.classList.contains("checked"),
+      });
     });
-  });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  };
+
+
+  const loadTaskState = () => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const liElements = listContainer.querySelectorAll("li");
+    savedTasks.forEach((task, index) => {
+      if (liElements[index] && task.checked) {
+        liElements[index].classList.add("checked");
+      }
+    });
+  };
+
+
+  const initializeTaskEvents = () => {
+    listContainer.querySelectorAll("li").forEach(item => {
+      item.addEventListener("click", () => {
+        item.classList.toggle("checked");
+        saveTaskState();
+      });
+    });
+  };
+
+
+  loadTaskState();
+
+
+  initializeTaskEvents();
 </script>
 
 </body>
