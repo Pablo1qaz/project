@@ -78,6 +78,12 @@ public class HomeController {
     @GetMapping({"/tables"})
     public String tables() { return "tables"; }
 
+    @GetMapping({"/forum"})
+    public String forum() { return "forum"; }
+
+    @GetMapping({"/thread"})
+    public String thread() { return "thread"; }
+
 
 
 

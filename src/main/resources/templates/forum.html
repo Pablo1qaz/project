@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Dyskusyjne - Komentarze</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
+
+    header {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    main {
+        margin: 2rem auto;
+        width: 90%;
+        max-width: 800px;
+    }
+
+    h2, h3 {
+        color: #333;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1rem 0;
+        background: #fff;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    button.delete {
+        background-color: #f44336;
+    }
+
+    button.delete:hover {
+        background-color: #e53935;
+    }
+
+    button.rate {
+        background-color: #2196F3;
+    }
+
+    button.rate:hover {
+        background-color: #1976D2;
+    }
+    .comment-content {
+        flex-grow: 1;
+    }
+
+    .comment-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+</style>
+
+<body>
+<div id="app">
+    <header>
+        <h1>Forum Dyskusyjne</h1>
+    </header>
+    <main>
+        <section id="comments-section">
+            <h2>Hello, <span id="logged-user">ZalogowanyUzytkownik</span>!</h2>
+            <h3>Comments</h3>
+            <ul id="comments-list"></ul>
+            <form id="comment-form">
+                <textarea id="comment-input" placeholder="Add comment..." required></textarea>
+                <button type="submit">Add comment</button>
+            </form>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loggedUser = "User"; // Dynamicznie ustawiony zalogowany użytkownik
+        const commentsKey = "forumComments"; // Klucz dla komentarzy w LocalStorage
+
+        // Wyświetlenie zalogowanego użytkownika
+        document.getElementById('logged-user').textContent = loggedUser;
+
+        // Funkcja wczytania komentarzy z LocalStorage
+        const loadComments = () => {
+            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+            const commentsList = document.getElementById('comments-list');
+            commentsList.innerHTML = ''; // Wyczyść listę przed dodaniem nowych elementów
+
+            comments.forEach((comment, index) => {
+                const userVote = comment.votes[loggedUser] || 0; // Pobierz głos zalogowanego użytkownika (0 - brak głosu)
+                const li = document.createElement('li');
+                li.classList.add('comment');
+                li.innerHTML = `
+                <div class="comment-content">
+                    <strong>${comment.user}:</strong> ${comment.text}
+                    <p><small>Oceny: ${comment.rating}</small></p>
+                </div>
+                <div class="comment-actions">
+                    <button
+                        class="rate"
+                        onclick="rateComment(${index}, 1)"
+                        style="color: ${userVote === 1 ? 'green' : 'inherit'}">👍</button>
+                    <button
+                        class="rate"
+                        onclick="rateComment(${index}, -1)"
+                        style="color: ${userVote === -1 ? 'red' : 'inherit'}">👎</button>
+                    <button class="delete" onclick="deleteComment(${index})">Usuń</button>
+                </div>
+            `;
+                commentsList.appendChild(li);
+            });
+        };
+
+        // Funkcja zapisywania komentarza
+        const saveComment = (comment) => {
+            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+            comments.push(comment);
+            localStorage.setItem(commentsKey, JSON.stringify(comments));
+        };
+
+        // Funkcja usuwania komentarza
+        const deleteComment = (index) => {
+            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+            comments.splice(index, 1); // Usuń komentarz po indeksie
+            localStorage.setItem(commentsKey, JSON.stringify(comments));
+            loadComments(); // Odśwież listę komentarzy
+        };
+
+        // Funkcja oceniania komentarza (z blokadą wielokrotnych głosów)
+        const rateComment = (index, value) => {
+            const comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+            const comment = comments[index];
+
+            if (comment) {
+                const userVote = comment.votes[loggedUser] || 0; // Pobierz aktualny głos użytkownika
+                if (userVote === value) {
+                    // Jeśli głos jest taki sam, resetuj ocenę użytkownika
+                    comment.rating -= value; // Odejmij głos
+                    comment.votes[loggedUser] = 0; // Resetuj głos użytkownika
+                } else {
+                    // Jeśli głos jest inny, zmień głos
+                    if (userVote !== 0) {
+                        comment.rating -= userVote; // Usuń poprzedni głos
+                    }
+                    comment.rating += value; // Dodaj nowy głos
+                    comment.votes[loggedUser] = value; // Zapisz nowy głos użytkownika
+                }
+            }
+
+            localStorage.setItem(commentsKey, JSON.stringify(comments));
+            loadComments(); // Odśwież listę komentarzy
+        };
+
+        // Obsługa formularza dodawania komentarza
+        document.getElementById('comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const commentInput = document.getElementById('comment-input').value.trim();
+
+            if (commentInput) {
+                const newComment = {
+                    user: loggedUser,
+                    text: commentInput,
+                    rating: 0, // Początkowa ocena
+                    votes: {}, // Obiekt przechowujący głosy użytkowników
+                    timestamp: new Date().toISOString()
+                };
+
+                saveComment(newComment); // Zapisz komentarz
+                loadComments(); // Załaduj zaktualizowaną listę
+                document.getElementById('comment-input').value = ''; // Wyczyść pole tekstowe
+            }
+        });
+
+        // Udostępnienie funkcji globalnie
+        window.deleteComment = deleteComment;
+        window.rateComment = rateComment;
+
+        // Załaduj komentarze przy starcie
+        loadComments();
+    });
+
+
+
+
+</script>
+</body>
+</html>
