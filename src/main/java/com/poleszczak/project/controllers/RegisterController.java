@@ -5,6 +5,7 @@ import com.poleszczak.project.models.RegisterData;
 import com.poleszczak.project.repositories.NewUsersRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,6 @@ public class RegisterController {
         return "register";
 
     }
-
 
     @PostMapping("/register")
     public String register(
@@ -77,7 +77,7 @@ public class RegisterController {
             newUsers1.setEmail(registerData.getEmail());
             newUsers1.setPhoneNumber(registerData.getPhoneNumber());
             newUsers1.setAddress(registerData.getAddress());
-            newUsers1.setRole("member");
+            newUsers1.setRole(registerData.getCompany() ? "COMPANY" : "USER");
             newUsers1.setCreatedAt(new Date());
             newUsers1.setPassword(bCryptEncoder.encode(registerData.getPassword()));
 

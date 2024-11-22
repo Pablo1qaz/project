@@ -22,7 +22,7 @@ public class NewUsersService implements UserDetailsService {
         if (newUsers != null){
             var springUser = User.withUsername(newUsers.getEmail())
                     .password(newUsers.getPassword())
-                    .roles(NewUsers.getRole())
+                    .roles(newUsers.getRole())
                     .build();
 
             return springUser;

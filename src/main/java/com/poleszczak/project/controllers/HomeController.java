@@ -81,8 +81,8 @@ public class HomeController {
     @GetMapping({"/forum"})
     public String forum() { return "forum"; }
 
-    @GetMapping({"/thread"})
-    public String thread() { return "thread"; }
+    /*@GetMapping({"/company"})
+    public String company() { return "company"; }*/
 
 
 
