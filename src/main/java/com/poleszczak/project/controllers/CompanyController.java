@@ -3,6 +3,7 @@ package com.poleszczak.project.controllers;
 import com.poleszczak.project.models.NewUsers;
 import com.poleszczak.project.models.RegisterData;
 import com.poleszczak.project.models.company.Company;
+import com.poleszczak.project.models.company.CompanyType;
 import com.poleszczak.project.repositories.NewUsersRepository;
 import com.poleszczak.project.repositories.company.CompanyRepository;
 import jakarta.validation.Valid;
@@ -33,6 +34,14 @@ public class CompanyController {
         return "company";
 
     }
+
+    @GetMapping("/halls")
+    public String companyList(Model model) {
+        var companies = repo.findAll();
+        model.addAttribute("companies", companies);
+        return "halls";
+    }
+
 
     @PostMapping("/company")
     public String company(
@@ -73,9 +82,11 @@ public class CompanyController {
             company1.setContactPhone(company.getContactPhone());
             company1.setAddress(company.getAddress());
             company1.setWebsite(company.getWebsite());
+            company1.setCompanyType(company.getCompanyType());
 
 
             repo.save(company1);
+
 
             model.addAttribute("company", new Company());
             model.addAttribute("success", true);

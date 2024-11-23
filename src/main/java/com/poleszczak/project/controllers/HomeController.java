@@ -21,10 +21,10 @@ public class HomeController {
         return "planner";
     }
 
-    @GetMapping({"/halls"})
+    /*@GetMapping({"/halls"})
     public String halls() {
         return "halls";
-    }
+    }*/
 
     @GetMapping({"/photographer"})
     public String photographer() {
