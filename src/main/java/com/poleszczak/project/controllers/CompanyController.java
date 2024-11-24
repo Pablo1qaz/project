@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
@@ -35,9 +36,9 @@ public class CompanyController {
 
     }
 
-    @GetMapping("/halls")
-    public String companyList(Model model) {
-        var companies = repo.findAll();
+    @GetMapping("/company/{type}")
+    public String companyList(Model model, @PathVariable("type") String type) {
+        var companies = repo.findByCompanyTypeTypeName(type);
         model.addAttribute("companies", companies);
         return "halls";
     }

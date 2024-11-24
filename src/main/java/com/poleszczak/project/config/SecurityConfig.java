@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/logout").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/company/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
