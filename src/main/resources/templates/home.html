@@ -105,15 +105,67 @@
         line-height: 1.9;
         text-align: center;
     }
+    .carousel-item::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+    }
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .navbar {
+        background-color: rgba(255, 184, 198, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+    .navbar:hover {
+        background-color: rgba(255, 184, 198, 1);
+    }
+    .navbar-nav .nav-link.active {
+        color: #ff6f91;
+        font-weight: 700;
+        border-bottom: 2px solid #ff6f91;
+    }
+    .navbar-nav .nav-link:hover {
+        color: #ff6f91;
+        transition: all 0.3s ease;
+    }
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #ff6f91;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /
+    }
+    .navbar {
+        background: linear-gradient(90deg, rgb(241, 239, 239) 0%, rgb(192, 201, 252) 100%);
+    }
+
+
+
+
+
 </style>
 <body>
 
 
 
 <nav class="navbar navbar-expand-lg border-bottom fixed-top shadow-sm bg-light" style="background-color: #ffb8c6;">
-    <div class="container-fluid">
+    <div class="container-fluid" >
+        <img th:src="@{images/logo.png}" alt="" class="me-2" style="height: 70px; width: 80px">
         <a class="navbar-brand fw-bold" href="/">
-            <img th:src="@{images/logo.png}" alt="" class="me-2" style="height: 50px;">Wedding with Class</a>
+            Wedding with Class</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
