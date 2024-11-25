@@ -93,12 +93,8 @@
                     <label class="col-sm-4 col-form-label">Company Type*</label>
                     <div class="col-sm-8">
                         <label>
-                            <select class="form-select">
-                                <!--<option th:each="companyType : ${companiesType}" th:value="${companyType.companyTypeId}" th:text="${companyType.typeName}">></option>-->
-
-
-
-
+                            <select class="form-select" th:field="${company.companyType.companyTypeId}">
+                                <option th:each="companyType : ${companiesType}" th:value="${companyType.companyTypeId}" th:text="${companyType.typeName}"></option>
                             </select>
                         </label>
                     </div>

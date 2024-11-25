@@ -44,9 +44,9 @@ public class CompanyController {
 
     @GetMapping("/company/{type}")
     public String companyList(Model model, @PathVariable("type") String type) {
-        var companies = repo.findByCompanyTypeTypeName(type);
+        var companies = repo.findByCompanyTypeType(type);
         model.addAttribute("companies", companies);
-        return "halls";
+        return "company_list";
     }
 
 
@@ -82,7 +82,6 @@ public class CompanyController {
 
         try{
 
-            var bCryptEncoder = new BCryptPasswordEncoder();
 
             Company company1 = new Company();
             company1.setName(company.getName());
@@ -93,7 +92,7 @@ public class CompanyController {
             company1.setCompanyType(company.getCompanyType());
 
 
-            repo.save(company1);
+            repo.save(company);
 
 
             model.addAttribute("company", new Company());

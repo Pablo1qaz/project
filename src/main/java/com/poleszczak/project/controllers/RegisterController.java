@@ -32,6 +32,7 @@ public class RegisterController {
 
     }
 
+
     @PostMapping("/register")
     public String register(
             Model model,

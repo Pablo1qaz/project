@@ -12,5 +12,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     public Company findByContactEmail(String contactEmail);
 
-    public List<Company> findByCompanyTypeTypeName(String type);
+    public List<Company> findByCompanyTypeType(String type);
 }

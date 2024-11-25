@@ -14,6 +14,9 @@ public class CompanyType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyTypeId;
 
+    @Column(name = "type", nullable = false, unique = true)
+    private String type;
+
     @Column(name = "type_name", nullable = false, unique = true)
     private String typeName;
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Firm</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-content span {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .card-button {
+        background-color: #7d2ae8;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+    .card-button:hover {
+        background-color: #5a1bb8;
+    }
+</style>
+
+<body>
+<div class="container">
+    <h1>Lista Firm</h1>
+    <div class="card" th:each="company : ${companies}">
+        <div class="card-content">
+            <span class="card-title" th:text="${company.name}"></span>
+            <span th:text="${company.contactEmail}"></span>
+            <span th:text="${company.contactPhone}"></span>
+            <span th:text="${company.address}"></span>
+        </div>
+        <div class="card-footer">
+            <a th:href="${company.website}" target="_blank" class="card-button">Zobacz Ofertę</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

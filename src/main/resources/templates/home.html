@@ -110,25 +110,26 @@
 
 
 
-<nav class="navbar navbar-expand-lg border-bottom fixed-top" style="background-color: #ffb8c6;">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top shadow-sm bg-light" style="background-color: #ffb8c6;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Wedding with Class</a>
+        <a class="navbar-brand fw-bold" href="/">
+            <img th:src="@{images/logo.png}" alt="" class="me-2" style="height: 50px;">Wedding with Class</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/contact">Contact</a>
+                    <a class="btn btn-success me-2" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/forum">Forum</a>
+                    <a class="btn btn-success me-2" href="/forum">Forum</a>
                 </li>
                 <li class="nav-item" th:if="${#authorization.expression('isAuthenticated() and hasRole(''ROLE_USER'')')}">
-                    <a class="nav-link text-dark" href="/planner">Wedding Planner</a>
+                    <a class="btn btn-secondary me-2" href="/planner">Wedding Planner</a>
                 </li>
                 <li class="nav-item" th:if="${#authorization.expression('isAuthenticated() and hasRole(''ROLE_COMPANY'')')}">
-                    <a class="nav-link text-dark" href="/company">Register company</a>
+                    <a class="btn btn-secondary me-2" href="/company">Register company</a>
                 </li>
 
 
@@ -144,12 +145,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/company/halls">Wedding Halls <span style="display: inline-block; width: 20px;"></span><i class="fas fa-chair"></i></a></li>
-                        <li><a class="dropdown-item" href="/photographer">Photographer <span style="display: inline-block; width: 20px;"></span><i class="fas fa-camera-retro"></i></a></li>
-                        <li><a class="dropdown-item" href="/dj">DJ <span style="display: inline-block; width: 20px;"></span><i class="fas fa-headphones-alt"></i></a></li>
-                        <li><a class="dropdown-item" href="/car">Car <span style="display: inline-block; width: 20px;"></span><i class="fas fa-car"></i></a></li>
-                        <li><a class="dropdown-item" href="/makeup">Makeup <span style="display: inline-block; width: 20px;"></span><i class="fas fa-cut"></i></a></li>
-                        <li><a class="dropdown-item" href="/decorations">Wedding Decorations <span style="display: inline-block; width: 20px;"></span><i class="fas fa-shapes"></i></a></li>
-                        <li><a class="dropdown-item" href="/cameraman">Cameraman <span style="display: inline-block; width: 20px;"></span><i class="fas fa-camera"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/photographer">Photographer <span style="display: inline-block; width: 20px;"></span><i class="fas fa-camera-retro"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/dj">DJ <span style="display: inline-block; width: 20px;"></span><i class="fas fa-headphones-alt"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/car">Car <span style="display: inline-block; width: 20px;"></span><i class="fas fa-car"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/makeup">Makeup <span style="display: inline-block; width: 20px;"></span><i class="fas fa-cut"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/decorations">Wedding Decorations <span style="display: inline-block; width: 20px;"></span><i class="fas fa-shapes"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/cameraman">Cameraman <span style="display: inline-block; width: 20px;"></span><i class="fas fa-camera"></i></a></li>
                     </ul>
                 </li>
             </ul>
@@ -160,11 +161,11 @@
                         Product catalog
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/dresses">Wedding Dresses <span style="display: inline-block; width: 20px;"></span><i class="fas fa-female"></i></a></li>
-                        <li><a class="dropdown-item" href="/suits">Wedding Suits <span style="display: inline-block; width: 20px;"></span><i class="fas fa-user-tie"></i></a></li>
-                        <li><a class="dropdown-item" href="/invitations">Wedding Invitations <span style="display: inline-block; width: 20px;"></span><i class="fas fa-envelope-open"></i></a></li>
-                        <li><a class="dropdown-item" href="/rings">Wedding Rings <span style="display: inline-block; width: 20px;"></span><i class="fas fa-ring"></i></a></li>
-                        <li><a class="dropdown-item" href="/gifts">Wedding Gifts <span style="display: inline-block; width: 20px;"></span><i class="fas fa-gifts"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/dresses">Wedding Dresses <span style="display: inline-block; width: 20px;"></span><i class="fas fa-female"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/suits">Wedding Suits <span style="display: inline-block; width: 20px;"></span><i class="fas fa-user-tie"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/invitations">Wedding Invitations <span style="display: inline-block; width: 20px;"></span><i class="fas fa-envelope-open"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/rings">Wedding Rings <span style="display: inline-block; width: 20px;"></span><i class="fas fa-ring"></i></a></li>
+                        <li><a class="dropdown-item" href="/company/gifts">Wedding Gifts <span style="display: inline-block; width: 20px;"></span><i class="fas fa-gifts"></i></a></li>
                     </ul>
                 </li>
             </ul>
@@ -182,6 +183,7 @@
             <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
                     <li class="nav-item">
                         <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+
                     </li>
                 <li class="nav-item">
                     <a href="/login" class="btn btn-primary ">Login</a>
@@ -192,6 +194,7 @@
         </div>
     </div>
 </nav>
+
 
 
 
@@ -207,7 +210,7 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Wedding in paradise</h5>
                 <p>Would you like to fulfill your dream of getting married in a place you have never even dreamed of?</p>
-                <p><a href="/halls" class="btn btn-warning mt-3">Search Here</a> </p>
+                <p><a href="/company/halls" class="btn btn-warning mt-3">Search Here</a> </p>
             </div>
         </div>
         <div class="carousel-item">
@@ -215,7 +218,7 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>People you love</h5>
                 <p>Do you want your wedding to be surrounded by the faces of people who make you smile?</p>
-                <p><a href="/invitations" class="btn btn-warning mt-3">Search Here</a> </p>
+                <p><a href="/company/invitations" class="btn btn-warning mt-3">Search Here</a> </p>
             </div>
         </div>
         <div class="carousel-item">
@@ -223,7 +226,7 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Pleasure on wheels</h5>
                 <p>Have you dreamed of driving your dream car on your wedding day?</p>
-                <p><a href="/cars" class="btn btn-warning mt-3">Search Here</a> </p>
+                <p><a href="/company/cars" class="btn btn-warning mt-3">Search Here</a> </p>
             </div>
         </div>
     </div>
@@ -244,5 +247,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>
