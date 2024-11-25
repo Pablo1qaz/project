@@ -6,6 +6,7 @@ import com.poleszczak.project.models.company.Company;
 import com.poleszczak.project.models.company.CompanyType;
 import com.poleszczak.project.repositories.NewUsersRepository;
 import com.poleszczak.project.repositories.company.CompanyRepository;
+import com.poleszczak.project.repositories.company.CompanyTypeRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
@@ -27,11 +28,16 @@ public class CompanyController {
     @Autowired
     private CompanyRepository repo;
 
+    @Autowired
+    private CompanyTypeRepository companyTypeRepository;
+
     @GetMapping("/company")
     public String register(Model model){
         Company company = new Company();
         model.addAttribute(company);
         model.addAttribute("success", false);
+        var companies = companyTypeRepository.findAll();
+        model.addAttribute("companiesType", companies);
         return "company";
 
     }
@@ -42,6 +48,7 @@ public class CompanyController {
         model.addAttribute("companies", companies);
         return "halls";
     }
+
 
 
     @PostMapping("/company")
